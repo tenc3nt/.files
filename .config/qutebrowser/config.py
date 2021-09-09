@@ -10,6 +10,30 @@
 ##   qute://help/configuring.html
 ##   qute://help/settings.html
 
+
+import subprocess
+
+def read_xresources(prefix):
+    props = {}
+    x = subprocess.run(['xrdb', '-query'], stdout=subprocess.PIPE)
+    lines = x.stdout.decode().split('\n')
+    for line in filter(lambda l : l.startswith(prefix), lines):
+        prop, _, value = line.partition(':\t')
+        props[prop] = value
+    return props
+
+xresources = read_xresources('*')
+c.colors.statusbar.normal.bg = xresources['*.background']
+
+import yaml
+
+with (config.configdir / 'config.yml').open() as f:
+    yaml_data = yaml.safe_load(f)
+
+for k, v in yaml_data.items():
+    config.set(k, v)
+
+
 ## This is here so configs done via the GUI are still loaded.
 ## Remove it to not load settings done via the GUI.
 config.load_autoconfig(True)
@@ -1643,7 +1667,7 @@ c.qt.workarounds.remove_service_workers = False
 ##   - never: Never show the scrollbar.
 ##   - when-searching: Show the scrollbar when searching for text in the webpage. With the QtWebKit backend, this is equal to `never`.
 ##   - overlay: Show an overlay scrollbar. On macOS, this is unavailable and equal to `when-searching`; with the QtWebKit backend, this is equal to `never`. Enabling/disabling overlay scrollbars requires a restart.
-c.scrolling.bar = 'overlay'
+c.scrolling.bar = 'never'
 
 ## Enable smooth scrolling for web pages. Note smooth scrolling does not
 ## work with the `:scroll-px` command.
@@ -1744,7 +1768,7 @@ c.statusbar.position = 'bottom'
 ##   - always: Always show the statusbar.
 ##   - never: Always hide the statusbar.
 ##   - in-mode: Show the statusbar when in modes other than normal mode.
-c.statusbar.show = 'always'
+c.statusbar.show = 'never'
 
 ## List of widgets displayed in the statusbar.
 ## Type: List of StatusbarWidget
@@ -1793,7 +1817,7 @@ c.tabs.favicons.scale = 1.0
 ##   - always: Always show favicons.
 ##   - never: Always hide favicons.
 ##   - pinned: Show favicons only on pinned tabs.
-c.tabs.favicons.show = 'always'
+c.tabs.favicons.show = 'never'
 
 ## Maximum stack size to remember for tab switches (-1 for no maximum).
 ## Type: Int
@@ -1805,7 +1829,7 @@ c.tabs.indicator.padding = {'top': 2, 'bottom': 2, 'left': 0, 'right': 4}
 
 ## Width (in pixels) of the progress indicator (0 to disable).
 ## Type: Int
-c.tabs.indicator.width = 3
+c.tabs.indicator.width = 0
 
 ## How to behave when the last tab is closed. If the
 ## `tabs.tabs_are_windows` setting is set, this is ignored and the
@@ -1891,7 +1915,7 @@ c.tabs.pinned.shrink = True
 ##   - bottom
 ##   - left
 ##   - right
-c.tabs.position = 'top'
+c.tabs.position = 'bottom'
 
 ## Which tab to select when the focused tab is removed.
 ## Type: SelectOnRemove
@@ -1925,7 +1949,7 @@ c.tabs.tabs_are_windows = False
 ##   - left
 ##   - right
 ##   - center
-c.tabs.title.alignment = 'left'
+c.tabs.title.alignment = 'center'
 
 ## Format to use for the tab title. The following placeholders are
 ## defined:  * `{perc}`: Percentage as a string like `[10%]`. *
@@ -1940,7 +1964,7 @@ c.tabs.title.alignment = 'left'
 ## web page. * `{protocol}`: Protocol (http/https/...) of the current web
 ## page. * `{audio}`: Indicator for audio/mute status.
 ## Type: FormatString
-c.tabs.title.format = '{audio}{index}: {current_title}'
+c.tabs.title.format = '{current_title}'
 
 ## Format to use for the tab title for pinned tabs. The same placeholders
 ## like for `tabs.title.format` are defined.
@@ -1950,7 +1974,7 @@ c.tabs.title.format_pinned = '{index}'
 ## Show tooltips on tabs. Note this setting only affects windows opened
 ## after it has been set.
 ## Type: Bool
-c.tabs.tooltips = True
+c.tabs.tooltips = False
 
 ## Number of closed tabs (per window) and closed windows to remember for
 ## :undo (-1 for no maximum).
@@ -2028,12 +2052,12 @@ c.url.yank_ignored_parameters = ['ref', 'utm_source', 'utm_medium', 'utm_campaig
 ## Hide the window decoration.  This setting requires a restart on
 ## Wayland.
 ## Type: Bool
-c.window.hide_decoration = False
+c.window.hide_decoration = True
 
 ## Format to use for the window title. The same placeholders like for
 ## `tabs.title.format` are defined.
 ## Type: FormatString
-c.window.title_format = '{perc}{current_title}{title_sep}qutebrowser'
+c.window.title_format = 'oops'
 
 ## Set the main window background to transparent.  This allows having a
 ## transparent tab- or statusbar (might require a compositor such as
@@ -2368,3 +2392,5 @@ config.bind('N', 'prompt-accept --save no', mode='yesno')
 config.bind('Y', 'prompt-accept --save yes', mode='yesno')
 config.bind('n', 'prompt-accept no', mode='yesno')
 config.bind('y', 'prompt-accept yes', mode='yesno')
+
+config.source('qutewal.py')
