@@ -1,0 +1,41 @@
+conky.config = {
+    alignment = 'top_left',
+    background = false,
+    default_color = '#decde3',
+    color1 = '#decde3',
+    color2 = '#decde3',
+    color3 = '#decde3',
+    color4 = '#decde3',
+    color5 = '#decde3',
+    color6 = '#decde3',
+    double_buffer = true,
+    font = 'DMMono Nerd Font:pixelsize=25:style=regular',
+    font1 = 'Iosevka:pixelsize=80:style:Light',
+    font2 = 'Iosevka:pixelsize=80',
+    font3 = 'Helvetica:pixelsize=30:style=italic',
+    draw_shades = false,
+    draw_outline = false,
+    draw_borders = false,
+    gap_x = 20,
+    gap_y = 20,
+    out_to_console = false,
+    out_to_ncurses = false,
+    out_to_stderr = false,
+    out_to_x = true,
+    own_window = true,
+    own_window_type = 'override',
+    own_window_title = 'conky',
+    own_window_class = 'Conky',
+    class_g = 'Conky',
+    own_window_transparent = true,
+    own_window_argb_visual = true,
+    own_window_argb_value = 0,
+    update_interval = 20,
+    use_xft = true,
+    uppercase = false,
+}
+
+conky.text = [[
+${color3}${font1}${time %H}${font2}${color3}${time %M}
+
+]];

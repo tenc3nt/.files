@@ -1,0 +1,142 @@
+!#define FG #b9b9b9
+!#define BG #000000
+!#define BL #443a36
+!#define WH #867564
+!#define R #7c7c7c
+!#define G #8e8e8e
+!#define Y #a0a0a0
+!#define B #686868
+!#define M #747474
+!#define C #868686
+
+#include "/home/ice/.cache/wal/colors.Xresources"
+
+XTerm*visualBell: False
+
+! special
+!*.foreground:   FG
+!*.background:   BG
+!*.cursorColor:  FG
+
+! black
+!*.color0:       BG
+!*.color8:       BG
+
+! red
+!*.color1:       R
+!*.color9:       R
+
+! green
+!*.color2:       G
+!*.color10:      G
+
+! yellow
+!*.color3:       Y
+!*.color11:      Y
+
+! blue
+!*.color4:       B
+!*.color12:      B
+
+! magenta
+!*.color5:       M
+!*.color13:      M
+
+! cyan
+!*.color6:       C
+!*.color14:      C
+
+! white
+!*.color7:       FG
+!*.color15:      FG
+
+! dmenu variables
+
+dmenu.font: FiraCode
+dmenu.background: #161616
+dmenu.foreground: #707070
+dmenu.selbackground: #161616
+dmenu.selforeground: #f2f2f2
+
+!-- Xft settings -- !
+Xft.antialias:	1
+Xft.hinting:	1
+Xft.autohint:	0
+Xft.hintstyle:	hintslight
+Xft.rgba:	rgba
+Xft.lcdfilter:	lcddefault
+Xft.dpi:   96
+
+!st.font:         scientifica:style=Regular:pixelsize=18
+!st.bold_font:	 scientifica:style=Bold:pixelsize=18
+!st.italic_font:	 scientifica:style=Italic:pixelsize=18
+st.font:	  JetBrainsMono Nerd Font Bandit:pixelsize=13
+
+! window border inner
+st.opacity: 255
+st.borderpx: 25
+
+
+! URxvt Configuration
+URxvt.font:                       xft:FiraCode:pixelsize=13:autohint=true:antialias=true,xft:Noto Color Emoji:pixelsize=12:antialias=false,xft:JetBrainsMono Nerd Font Bandit:pixelsize=15:antialias=true
+URxvt.geometry:                   64x32
+URxvt.internalBorder:             25
+URxvt.cursorBlink:                false
+URxvt.cursorUnderline:            true
+URxvt.saveLines:                  8192
+URxvt.scrollBar:                  false
+URxvt.scrollBar_right:            true
+URxvt.scrollBar_floating:         false
+URxvt.scrollstyle:                plain
+URxvt.scrollWithBuffer:           false
+URxvt.urgentOnBell:               false
+URxvt.depth:                      32
+URxvt.iso14755:                   false
+!URxvt.iconFile:                   /home/username/.icons/gladient/term.png
+! Uncomment below if too much font spacing
+URxvt.letterSpace: 1
+
+! URxvt Extensions
+URxvt.perl-ext-common:            default,tabbedex,url-select
+URxvt.keysym.Control-Shift-C:     eval:selection_to_clipboard
+URxvt.keysym.Control-Shift-V:     eval:paste_clipboard
+URxvt.keysym.Control-Up:          eval:scroll_up 1
+URxvt.keysym.Control-Down:        eval:scroll_down 1
+URxvt.keysym.Control-Home:        eval:scroll_to_top
+URxvt.keysym.Control-End:         eval:scroll_to_bottom
+
+! Tabbedex Ext
+URxvt.tabbedex.no-tabbedex-keys:  yes
+URxvt.tabbedex.new-button:        false
+URXvt.tabbedex.reopen-on-close:   yes
+URxvt.tabbedex.autohide:          yes
+URxvt.tabbedex.tabbar-fg:         5
+URxvt.tabbedex.tabbar-bg:         0
+URxvt.tabbedex.tab-fg:            10
+URxvt.tabbedex.tab-bg:            0
+URxvt.tabbedex.bell-fg:           0
+URxvt.tabbedex.bell-bg:           0
+URxvt.tabbedex.bell-tab-fg:       0
+URxvt.tabbedex.bell-tab-bg:       0
+URxvt.tabbedex.title-fg:          14
+URxvt.tabbedex.title-bg:          0
+URxvt.keysym.Control-Shift-T:     tabbedex:new_tab
+URxvt.keysym.Control-Shift-R:     tabbedex:rename_tab
+URxvt.keysym.Control-Shift-W:     tabbedex:kill_tab
+URxvt.keysym.Control-Next:        tabbedex:next_tab
+URxvt.keysym.Control-Prior:       tabbedex:prev_tab
+URxvt.keysym.Control-Shift-Next:  tabbedex:move_tab_right
+URxvt.keysym.Control-Shift-Prior: tabbedex:move_tab_left
+
+! Resize Font Ext
+URxvt.resize-font.step: 1
+URxvt.keysym.Control-minus:       resize-font:smaller
+URxvt.keysym.Control-plus:        resize-font:bigger
+URxvt.keysym.Control-equal:       resize-font:reset
+URxvt.keysym.Control-question:    resize-font:show
+
+! URL Select Ext
+URxvt.keysym.Control-Shift-U:     url-select:select_next
+URvxt.url-select.button:          2
+URxvt.url-select.launcher:        brave
+URxvt.url-select.underline:       true
