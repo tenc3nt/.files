@@ -12,6 +12,7 @@
 
 
 import subprocess
+import sys
 
 def read_xresources(prefix):
     props = {}
@@ -22,8 +23,104 @@ def read_xresources(prefix):
         props[prop] = value
     return props
 
+def clamp(val, minimum=0, maximum=255):
+    if val < minimum:
+        return minimum
+    if val > maximum:
+        return maximum
+    return val
+
+def adjust(hexstr, scalefactor):
+    hexstr = hexstr.strip('#')
+    if scalefactor < 0 or len(hexstr) != 6:
+        return hexstr
+
+    r, g, b = int(hexstr[:2], 16), int(hexstr[2:4], 16), int(hexstr[4:], 16)
+    r = int(clamp(r * scalefactor))
+    g = int(clamp(g * scalefactor))
+    b = int(clamp(b * scalefactor))
+
+    return "#%02x%02x%02x" % (r, g, b)
+
 xresources = read_xresources('*')
-c.colors.statusbar.normal.bg = xresources['*.background']
+
+config.load_autoconfig()
+
+c.colors.completion.category.bg                 = xresources['*.background']
+c.colors.completion.category.border.bottom      = xresources['*.color8']
+c.colors.completion.category.border.top         = xresources['*.color0']
+c.colors.completion.category.fg                 = xresources['*.color8']
+c.colors.completion.even.bg                     = xresources['*.background']
+c.colors.completion.item.selected.bg            = xresources['*.color0']
+c.colors.completion.item.selected.border.bottom = xresources['*.color0']
+c.colors.completion.item.selected.border.top    = xresources['*.color0']
+c.colors.completion.item.selected.fg            = xresources['*.color7']
+c.colors.completion.match.fg                    = xresources['*.color7']
+c.colors.completion.odd.bg                      = xresources['*.background']
+c.colors.completion.scrollbar.bg                = xresources['*.background']
+c.colors.completion.scrollbar.fg                = xresources['*.color2']
+
+c.colors.downloads.bar.bg    = xresources['*.color0']
+c.colors.downloads.error.bg  = xresources['*.color1']
+c.colors.downloads.error.fg  = xresources['*.color7']
+c.colors.downloads.start.bg  = xresources['*.color2']
+c.colors.downloads.start.fg  = xresources['*.color7']
+c.colors.downloads.stop.bg   = xresources['*.background']
+c.colors.downloads.stop.fg   = xresources['*.color7']
+c.colors.downloads.system.bg = 'none'
+c.colors.downloads.system.fg = 'none'
+
+c.colors.hints.fg       = xresources['*.color0']
+c.colors.hints.match.fg = xresources['*.color2']
+
+c.colors.messages.error.bg       = xresources['*.color1']
+c.colors.messages.error.border   = xresources['*.color1']
+c.colors.messages.error.fg       = xresources['*.color7']
+c.colors.messages.info.bg        = xresources['*.color0']
+c.colors.messages.info.border    = xresources['*.color0']
+c.colors.messages.info.fg        = xresources['*.color7']
+c.colors.messages.warning.bg     = xresources['*.color1']
+c.colors.messages.warning.border = xresources['*.color1']
+c.colors.messages.warning.fg     = xresources['*.color7']
+
+c.colors.prompts.bg          = xresources['*.color7']
+c.colors.prompts.border      = '1px solid gray'
+c.colors.prompts.fg          = xresources['*.color7']
+c.colors.prompts.selected.bg = xresources['*.background']
+
+c.colors.statusbar.caret.bg             = xresources['*.color5']
+c.colors.statusbar.caret.fg             = xresources['*.color7']
+c.colors.statusbar.caret.selection.bg   = '#a12dff'
+c.colors.statusbar.caret.selection.fg   = xresources['*.color7']
+c.colors.statusbar.command.bg           = xresources['*.color0']
+c.colors.statusbar.command.fg           = xresources['*.color7']
+c.colors.statusbar.command.private.bg   = xresources['*.color7']
+c.colors.statusbar.command.private.fg   = xresources['*.color7']
+c.colors.statusbar.insert.bg            = xresources['*.color2']
+c.colors.statusbar.insert.fg            = xresources['*.color7']
+c.colors.statusbar.normal.bg            = xresources['*.color0']
+c.colors.statusbar.normal.fg            = xresources['*.foreground']
+c.colors.statusbar.passthrough.bg       = xresources['*.color4']
+c.colors.statusbar.passthrough.fg       = xresources['*.foreground']
+c.colors.statusbar.private.bg           = '#666666'
+c.colors.statusbar.private.fg           = xresources['*.foreground']
+c.colors.statusbar.progress.bg          = xresources['*.color7']
+c.colors.statusbar.url.fg               = xresources['*.foreground']
+c.colors.statusbar.url.hover.fg         = xresources['*.color6']
+c.colors.statusbar.url.success.https.fg = adjust(xresources['*.foreground'], 0.7)
+c.colors.statusbar.url.warn.fg          = xresources['*.color3']
+
+
+c.colors.tabs.bar.bg           = xresources['*.background']
+c.colors.tabs.even.bg          = adjust(xresources['*.background'], 1.15)
+c.colors.tabs.even.fg          = xresources['*.color7']
+c.colors.tabs.indicator.error  = '#ff0000'
+c.colors.tabs.odd.bg           = adjust(xresources['*.background'], 1.35)
+c.colors.tabs.odd.fg           = xresources['*.color7']
+c.colors.tabs.selected.even.bg = adjust(xresources['*.background'], 1.15)
+c.colors.tabs.selected.even.fg = xresources['*.color3']
+c.colors.tabs.selected.odd.bg  = adjust(xresources['*.background'], 1.35)
+c.colors.tabs.selected.odd.fg  = xresources['*.color3']
 
 import yaml
 
@@ -32,6 +129,9 @@ with (config.configdir / 'config.yml').open() as f:
 
 for k, v in yaml_data.items():
     config.set(k, v)
+
+c.url.start_pages = "/home/ice/Documents/startpage/index.html"
+c.url.default_page = "/home/ice/Documents/startpage//index.html"
 
 
 ## This is here so configs done via the GUI are still loaded.
@@ -732,7 +832,7 @@ c.content.blocking.hosts.lists = ['https://raw.githubusercontent.com/StevenBlack
 ##   - adblock: Use Brave's ABP-style adblocker
 ##   - hosts: Use hosts blocking
 ##   - both: Use both hosts blocking and Brave's ABP-style adblocker
-c.content.blocking.method = 'auto'
+c.content.blocking.method = 'hosts'
 
 ## A list of patterns that should always be loaded, despite being blocked
 ## by the ad-/host-blocker. Local domains are always exempt from
@@ -1221,7 +1321,7 @@ c.fileselect.handler = 'default'
 ## contained in any argument, the   standard output of the command is
 ## read instead.
 ## Type: ShellCommand
-c.fileselect.multiple_files.command = ['xterm', '-e', 'ranger', '--choosefiles={}']
+c.fileselect.multiple_files.command = ['urxvt', '-e', 'ranger', '--choosefiles={}']
 
 ## Command (and arguments) to use for selecting a single file in forms.
 ## The command should write the selected file path to the specified file
@@ -1229,7 +1329,7 @@ c.fileselect.multiple_files.command = ['xterm', '-e', 'ranger', '--choosefiles={
 ## the file to be written to. If not contained in any argument, the
 ## standard output of the command is read instead.
 ## Type: ShellCommand
-c.fileselect.single_file.command = ['xterm', '-e', 'ranger', '--choosefile={}']
+c.fileselect.single_file.command = ['urxvt', '-e', 'ranger', '--choosefile={}']
 
 ## Font used in the completion categories.
 ## Type: Font
@@ -1259,7 +1359,7 @@ c.fonts.default_family = []
 ## either a float value with a "pt" suffix, or an integer value with a
 ## "px" suffix.
 ## Type: String
-c.fonts.default_size = '10pt'
+c.fonts.default_size = '12pt'
 
 ## Font used for the downloadbar.
 ## Type: Font
@@ -2002,7 +2102,7 @@ c.url.auto_search = 'naive'
 ## Page to open if :open -t/-b/-w is used without URL. Use `about:blank`
 ## for a blank page.
 ## Type: FuzzyUrl
-c.url.default_page = 'https://start.duckduckgo.com/'
+#c.url.default_page = 'https://start.duckduckgo.com/'
 
 ## URL segments where `:navigate increment/decrement` will search for a
 ## number.
@@ -2043,7 +2143,7 @@ c.url.searchengines = {'DEFAULT': 'https://duckduckgo.com/?q={}'}
 
 ## Page(s) to open at the start.
 ## Type: List of FuzzyUrl, or FuzzyUrl
-c.url.start_pages = ['https://start.duckduckgo.com']
+#c.url.start_pages = ['https://start.duckduckgo.com']
 
 ## URL parameters to strip with `:yank url`.
 ## Type: List of String
