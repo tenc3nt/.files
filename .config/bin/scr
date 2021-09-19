@@ -1,0 +1,3 @@
+#!/bin/bash
+
+ gnome-screenshot -d 10 -f $HOME/Pictures/Screenshots/$(date +%F-%H%M%S).png | xclip -selection clipboard -t image/png && notify-send -i image-missing "Capture on 10 second" "Saved to \~/Pictures/Screenshots"

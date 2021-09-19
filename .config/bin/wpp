@@ -1,0 +1,40 @@
+#!/bin/sh -f
+
+#
+# wpp - wallpaper
+#
+
+die() {
+    printf '\033[1;31m%s\033[m\n' "$*"
+    exit 1
+}
+
+img() {
+    set +f
+    set -f -- "${1%%/}/"*
+    shift "$(shuf -i "0-$#" -n 1)"
+
+    while [ ! -f "$1" ] && [ "$2" ]; do shift; done
+
+    [ -f "${img:=$1}" ] || {
+        die "Failed to select wallpaper."
+    }
+}
+
+main() {
+    command -v feh >/dev/null || {
+        die "feh is not installed."
+    }
+
+    [ -z "$WPP_LIB" ] && {
+        die "WPP_LIB is not set."
+    }
+
+    img "$WPP_LIB"
+
+    feh --bg-fill "$img" &
+
+    printf 'Using wallpaper: %s\n' "${img##*/}"
+}
+
+main
