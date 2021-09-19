@@ -1,0 +1,27 @@
+#!/bin/sh
+
+# colors and palette method stolen from dylanaraps pfetch
+# https://github.com/dylanaraps/pfetch
+
+c0='[0m';
+c1='[31m'; c2='[32m'
+c3='[33m'; c4='[34m'
+c5='[35m'; c6='[36m'
+c7='[37m'; c8='[38m'
+r="[7m$c1$c1 $c1 $c1 $c1 $c2 $c2 $c2 $c2 $c3 $c3 $c3 $c3 $c4 $c4 $c4 $c4 $c5 $c5 $c5 $c5 $c6[m"
+a="[7m$c2 $c2 $c6 $c6 $c3 $c3 $c5 $c5 $c1 $c1 $c4 $c4 $c5 $c5 $c3 $c3 $c6 $c6 $c2 $c2 $c1 $c1 $c2 $c2 [m"
+n="[7m$c5 $c5 $c2 $c2 $c6 $c6 $c3 $c3 $c4 $c4 $c1 $c1 $c3 $c3 $c2 $c2 $c4 $c4 $c1 $c1 $c5 $c5 $c6 $c6 [m"
+d="[7m$c1$c1 $c6 $c6 $c6 $c2 $c2 $c5 $c5 $c3 $c3 $c4 $c4 $c4 $c4 $c3 $c3 $c5 $c5 $c2 $c2 $c6 $c6 $c1 $c1 [m"
+v="[7m$c1$c6 $c6 $c6 $c6 $c5 $c5 $c5 $c5 $c4 $c4 $c4 $c4 $c3 $c3 $c3 $c3 $c2 $c2 $c2 $c2 $c1 $c1 $c1 $c1 [m"
+white="[7m$c7 $c7 $c7 $c7 $c7 $c7 $c7 $c7 $c7 $c7 $c7 $c7 $c7 $c7 $c7 $c7 $c7 $c7 $c7 $c7 $c7 $c7 [m"
+
+
+# output
+    printf "
+${r}${v}
+${r}${v}
+${r}${v}
+${r}${v}
+${r}${v}
+${white}${white}
+"
