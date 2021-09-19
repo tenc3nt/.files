@@ -1,0 +1,76 @@
+# menu
+menu.items.active.bg: Solid Flat
+menu.items.active.bg.color: {foreground}
+menu.items.active.text.color: {color5}
+menu.items.*.border.width: 30
+menu.items.bg: Solid Flat
+menu.items.bg.color:  {foreground}
+menu.items.disabled.text.color: {color5}
+menu.items.text.color: black
+menu.border.width: 40
+menu.border.color:  {foreground}
+menu.title.bg: Solid Flat
+menu.title.*.color: #000000
+menu.title.text.justify: Left
+menu.separator.color: {foreground}
+menu.overlap.x: -45
+
+
+# OSD
+osd.bg: Solid Flat
+osd.bg.color:  {background}
+osd.border.width: 6
+osd.label.bg:  {background}
+osd.label.text.color:  {color5}
+osd.hilight.bg.color:  {foreground}
+osd.unhilight.bg.color:  {background}
+osd.border.color:  {background}
+
+
+# windows
+border.width: 0
+*.border.color:  {color6}
+# *.active.border.color: white
+# *.inactive.border.color: #f2f2f2
+window.client.padding.width: 0
+window.handle.width: 38
+window.label.text.justify: center
+window.*.label.text.color: white
+
+
+# titlebars
+padding.height: 4
+padding.width: 4
+
+# active window
+window.active.*.bg: Solid Flat
+window.active.*.bg.color: {background}
+window.active.button.*.bg.color: {background}
+window.active.button.hover.image.color: {background}
+window.active.button.pressed.image.color: {background}
+window.active.button.toggled.image.color: {background}
+window.active.button.unpressed.image.color: {background}
+
+
+# inactive window
+window.inactive.*.bg: Solid Flat
+window.inactive.*.bg.color: {background}
+window.inactive.button.*.bg.color: {background}
+window.inactive.button.hover.image.color:  {background}
+window.inactive.button.pressed.image.color:  {background}
+window.inactive.button.toggled.image.color: {background}
+window.inactive.button.unpressed.image.color:  {background}
+
+
+# handle
+window.active.handle.bg: Flat
+window.active.handle.bg.color:  white
+window.inactive.handle.bg: Flat
+window.inactive.handle.bg.color:  {color3}
+
+
+# grip
+window.active.grip.bg: Flat
+window.active.grip.bg.color:  white
+window.inactive.grip.bg: Flat
+window.inactive.grip.bg.color: {color3}
