@@ -1,0 +1,2 @@
+#!/bin/sh
+sxiv -tr $HOME/Pictures/Wallpaper/view/

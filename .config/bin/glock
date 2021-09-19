@@ -1,0 +1,39 @@
+#!/bin/bash
+# glitch i3lock....
+
+BLANK='#00000000'
+CLEAR='#ffffff22'
+DEFAULT='#ff00ffcc'
+TEXT='#f2f2f2f2'
+WRONG='#880000bb'
+VERIFYING='#bb00bbbb'
+
+scrot "/tmp/bg.png"; corrupter -add 50 -boffset 1 -lag 0.001 -mag 1 "/tmp/bg.png" "/tmp/bg1.png"
+convert "/tmp/bg1.png" -resize $(xdpyinfo | grep dimensions | sed -r 's/^[^0-9]*([0-9]+x[0-9]+).*$/\1/') RGB:- | i3lock --raw $(xdpyinfo | grep dimensions | sed -r 's/^[^0-9]*([0-9]+x[0-9]+).*$/\1/'):rgb --image "/tmp/bg1.png"  \
+\
+--insidever-color=$BLANK     \
+--ringver-color=$BLANK   \
+\
+--insidewrong-color=$CLEAR   \
+--ringwrong-color=$CLEAR     \
+\
+--inside-color=$BLANK        \
+--ring-color=$BLANK        \
+--line-color=$BLANK          \
+--separator-color=$CLEAR   \
+\
+--verif-color=$BLANK          \
+--wrong-color=$BLANK          \
+--time-color=$TEXT           \
+--date-color=$TEXT           \
+--layout-color=$BLANK         \
+--keyhl-color=$BLANK         \
+--bshl-color=$BLANK          \
+\
+--screen 1                   \
+--clock                      \
+--indicator 1                 \
+--time-str="%H.%M"        \
+--date-str="%A %m %Y"       \
+--pointer=default && rm "/tmp/bg.png" "/tmp/bg1.png" & \
+

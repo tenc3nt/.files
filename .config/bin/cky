@@ -1,0 +1,60 @@
+#!/bin/sh
+
+#
+# cky - conky
+#
+
+# shellcheck disable=SC1090
+[ -f ~/.cache/wal/colors.sh ] && . ~/.cache/wal/colors.sh
+
+killall -q conky
+
+printf '%s' "$(cat << CONF
+conky.config = {
+    alignment = 'mm',
+    background = false,
+    default_color = '${color7:=#FFFFFF}',
+    color1 = '${foreground:=#FFFFFF}',
+    color2 = '${foreground:=#FFFFFF}',
+    color3 = '${foreground:=#FFFFFF}',
+    color4 = '${foreground:=#FFFFFF}',
+    color5 = '${foreground:=#FFFFFF}',
+    color6 = '#FFFFFF',
+    double_buffer = true,
+    font = 'DMMono Nerd Font:pixelsize=25:style=regular',
+    font1 = 'Sister:pixelsize=80',
+    font2 = 'Sister:pixelsize=80',
+    font3 = 'Helvetica:pixelsize=30:style=italic',
+    draw_shades = false,
+    draw_outline = false,
+    draw_borders = false,
+    gap_x = 0,
+    gap_y = 0,
+    out_to_console = false,
+    out_to_ncurses = false,
+    out_to_stderr = false,
+    out_to_x = true,
+    own_window = true,
+    own_window_type = 'desktop',
+    own_window_title = 'conky',
+    own_window_class = 'conky',
+    class_g = 'Conky',
+    own_window_transparent = true,
+    own_window_argb_visual = true,
+    own_window_argb_value = 0,
+    update_interval = 20,
+    use_xft = true,
+    uppercase = false,
+}
+
+conky.text = [[
+\${color6}\${font1}\${time %A}\${font2}
+\${color6}
+
+]];
+CONF
+)" > ~/.conkyrc
+
+while pgrep -x conky > /dev/null; do (:;:); done
+
+conky -c ~/.conkyrc -d
