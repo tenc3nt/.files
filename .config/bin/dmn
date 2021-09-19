@@ -1,0 +1,8 @@
+#!/bin/sh
+
+dmenu_run -b -i \
+    -nb "#08090c" \
+    -nf "#9cb9de" \
+    -sb "#08090c" \
+    -sf "#e24358" \
+    -fn "SFMono-12"
