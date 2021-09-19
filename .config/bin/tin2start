@@ -1,0 +1,6 @@
+#!/bin/sh
+
+# Terminate already running bar instances
+killall -q tint2
+
+tint2
